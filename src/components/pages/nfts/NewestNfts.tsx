@@ -1,31 +1,9 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
+import useFetchNewestNfts from "@/hooks/useFetchNewestNfts";
 
 const NewestNfts = () => {
-  const [nfts, setNfts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    axios
-      .get(
-        "https://pro-api.solscan.io/v2.0/nft/news?filter=created_time&page=1&page_size=24",
-        {
-          headers: {
-            token: process.env.NEXT_PUBLIC_API_KEY,
-          },
-        }
-      )
-      .then((response) => response.data)
-      .then((data) => {
-        setNfts(data);
-        console.log(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, []);
+  const { nfts, error, loading } = useFetchNewestNfts();
+
   return (
     <div>
       <h1 className="text-3xl font-bold">Newest NFTs</h1>
