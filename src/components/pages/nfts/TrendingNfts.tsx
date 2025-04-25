@@ -1,27 +1,31 @@
-import React from "react";
+"use client";
+
+import { NFTCollectionsTable } from "./NftCollectionTable";
 import useFetchTrendingNfts from "@/hooks/useFetchTrendingNfts";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertTriangle } from "lucide-react";
 
 const TrendingNfts = () => {
   const { nfts, error, loading } = useFetchTrendingNfts();
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold">Trending NFTs</h1>
-      {loading && <p>Loading...</p>}
-      {/* Error message handling removed as per recent edits */}
-      {nfts.length > 0 ? (
-        <div className="grid grid-cols-3 gap-4">
-          {nfts.map((nft: any) => (
-            <div key={nft.id} className="border p-4">
-              <h2 className="text-xl font-bold">{nft.name}</h2>
-              <img src={nft.image} alt={nft.name} />
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>No NFTs found</p>
+    <section className="container">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold tracking-tight">
+          Trending NFT Collections
+        </h2>
+      </div>
+
+      {error && (
+        <Alert variant="destructive" className="mb-6">
+          <AlertTriangle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
       )}
-    </div>
+
+      <NFTCollectionsTable collections={nfts} loading={loading} />
+    </section>
   );
 };
 

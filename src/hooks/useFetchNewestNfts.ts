@@ -15,7 +15,7 @@ export default function useFetchNewestNfts() {
           },
         }
       )
-      .then((response) => response.data)
+      .then((response) => response.data.data.data)
       .then((data) => {
         setNfts(data);
         console.log(data);
