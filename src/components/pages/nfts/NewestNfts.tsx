@@ -6,7 +6,7 @@ import { NftCard, NftCardSkeleton } from "./NftCard";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { NFT, NftCardProps } from "@/types";
+import { NFT } from "@/types";
 
 export default function NewestNfts() {
   const { nfts, error, loading } = useFetchNewestNfts();

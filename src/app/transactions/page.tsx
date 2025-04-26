@@ -37,6 +37,7 @@ const formatTime = (timestamp: string) => {
     const date = new Date(timestamp);
     return formatDistanceToNow(date, { addSuffix: true });
   } catch (error) {
+    console.log(error);
     return "Unknown time";
   }
 };
