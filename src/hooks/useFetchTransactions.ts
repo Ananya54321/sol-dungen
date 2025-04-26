@@ -12,7 +12,7 @@ export default function useFetchTransactions() {
       setLoading(true);
       try {
         const res = await axios.get(
-          "https://pro-api.solscan.io/v2.0/transaction/last?limit=100&filter=all",
+          "https://pro-api.solscan.io/v2.0/transaction/last?limit=100",
           {
             headers: {
               token: process.env.NEXT_PUBLIC_API_KEY,

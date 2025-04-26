@@ -31,3 +31,20 @@ export interface TransactionResponse {
   success: boolean;
   data: Transaction[];
 }
+export interface TransactionData {
+  tx_hash: string;
+  status: string;
+  time: string;
+  fee: number;
+  program_ids: string[];
+  signer: string[];
+  slot: number;
+  block_time: number;
+  block_id: string;
+  program_id: string;
+  parsed_instructions: {
+    type: string;
+    program: string;
+    program_id: string;
+  }[];
+}
