@@ -48,3 +48,32 @@ export interface TransactionData {
     program_id: string;
   }[];
 }
+
+export interface NFTMetadata {
+  description?: string;
+  image?: string;
+  collection?: {
+    name?: string;
+  };
+}
+
+export interface NFTData {
+  name?: string;
+  symbol?: string;
+}
+
+export interface NFTInfo {
+  address?: string;
+  data?: NFTData;
+  meta?: NFTMetadata;
+  collection?: string;
+}
+
+export interface NFT {
+  info?: NFTInfo;
+}
+
+export interface NftCardProps {
+  nft: NFT;
+  className?: string;
+}

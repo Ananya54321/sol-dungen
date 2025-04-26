@@ -9,14 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+
 import {
   Accordion,
   AccordionContent,
@@ -26,13 +19,7 @@ import {
 import { formatDistanceToNow } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import {
-  CircleIcon,
-  ClockIcon,
-  HashIcon,
-  LayersIcon,
-  ChevronDownIcon,
-} from "lucide-react";
+import { CircleIcon, ClockIcon, HashIcon, LayersIcon } from "lucide-react";
 
 const formatTime = (timestamp: string) => {
   try {
@@ -42,6 +29,7 @@ const formatTime = (timestamp: string) => {
       relative: formatDistanceToNow(date, { addSuffix: true }),
     };
   } catch (error) {
+    console.log(error);
     return {
       absolute: "Unknown time",
       relative: "Unknown time",
