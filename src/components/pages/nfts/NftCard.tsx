@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ExternalLink, Copy, Info } from "lucide-react";
+import { ExternalLink, Copy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,

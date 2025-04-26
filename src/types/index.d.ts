@@ -112,7 +112,7 @@ export interface Token {
   logoURI?: string;
   programId?: string;
   tags?: string[];
-  extensions?: Record<string, any>;
+  extensions?: Record<string, string>;
   market_cap: number;
   price: number;
   price_24h_change: number;
@@ -120,13 +120,16 @@ export interface Token {
   created_time?: number;
 }
 
-
 export interface PoolAPRStats {
   apr: number;
   feeApr: number;
   priceMax?: number;
   priceMin?: number;
-  rewardApr?: any[];
+  rewardApr?: Array<{
+    apr: number;
+    rewardMint?: string;
+    rewardSymbol?: string;
+  }>;
   volume?: number;
   volumeFee?: number;
   volumeQuote?: number;
@@ -146,13 +149,17 @@ export interface PoolInfo {
   day?: PoolAPRStats;
   week?: PoolAPRStats;
   month?: PoolAPRStats;
-  config?: Record<string, any>;
+  config?: Record<string, string>;
 }
 
 export interface UnclaimedFeeInfo {
   amountA: number;
   amountB: number;
-  reward?: any[];
+  reward?: Array<{
+    amount?: number;
+    mint?: string;
+    symbol?: string;
+  }>;
   usdFeeValue?: number;
   usdRewardValue?: number;
   usdValue?: number;

@@ -3,13 +3,10 @@ import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import useFetchCollectionItems from "@/hooks/useFetchCollectionItems";
 import { formatDistanceToNow } from "date-fns";
-import { Copy, ExternalLink, MoreHorizontal } from "lucide-react";
+import { Copy, ExternalLink } from "lucide-react";
 import {
   NFTItemAttribute,
   NFTItemCreator,
-  NFTItemMeta,
-  NFTItemInfo,
-  NFTItemStats,
   NFTItemDetails,
 } from "@/types";
 
