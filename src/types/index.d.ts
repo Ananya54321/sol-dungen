@@ -97,3 +97,20 @@ export interface NftCardProps {
   nft: NFT;
   className?: string;
 }
+export interface Token {
+  address: string;
+  decimals: number;
+  name: string;
+  symbol: string;
+}
+export interface Token {
+  address: string;
+  decimals: number;
+  name: string;
+  symbol: string;
+  market_cap: number;
+  price: number;
+  price_24h_change: number;
+  holder: number;
+  created_time?: number;
+}
