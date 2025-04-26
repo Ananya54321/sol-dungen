@@ -27,6 +27,7 @@ import {
 import { cn } from "@/lib/utils";
 import { NftCardProps } from "@/types";
 import { formatNumber } from "@/lib/utils";
+import Image from "next/image";
 
 export function NftCard({ nft, className }: NftCardProps) {
   if (!nft) return null;
@@ -81,9 +82,11 @@ export function NftCard({ nft, className }: NftCardProps) {
         className
       )}>
       <div className="aspect-square w-full overflow-hidden">
-        <img
+        <Image
           src={image || "/placeholder.svg"}
           alt={name}
+          width={300}
+          height={300}
           className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
         />
       </div>

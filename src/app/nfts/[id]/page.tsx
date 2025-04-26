@@ -4,11 +4,8 @@ import { useParams } from "next/navigation";
 import useFetchCollectionItems from "@/hooks/useFetchCollectionItems";
 import { formatDistanceToNow } from "date-fns";
 import { Copy, ExternalLink } from "lucide-react";
-import {
-  NFTItemAttribute,
-  NFTItemCreator,
-  NFTItemDetails,
-} from "@/types";
+import { NFTItemAttribute, NFTItemCreator, NFTItemDetails } from "@/types";
+import Image from "next/image";
 
 const NFTDetailPage = () => {
   const params = useParams();
@@ -77,7 +74,7 @@ const NFTDetailPage = () => {
             <div className="flex flex-col space-y-4">
               <div className="rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 aspect-square">
                 {displayNft.info.meta?.image ? (
-                  <img
+                  <Image
                     src={displayNft.info.meta.image}
                     alt={
                       displayNft.info.meta.name ||
@@ -85,6 +82,9 @@ const NFTDetailPage = () => {
                       "NFT"
                     }
                     className="w-full h-full object-contain"
+                    width={500}
+                    height={500}
+                    priority
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
@@ -367,13 +367,15 @@ const NFTDetailPage = () => {
               onClick={() => handleNftClick(nft)}>
               {nft.info.meta?.image && (
                 <div className="aspect-square overflow-hidden rounded-md mb-3 bg-gray-100 dark:bg-gray-700">
-                  <img
+                  <Image
                     src={nft.info.meta.image}
                     alt={
                       nft.info.meta?.name ||
                       nft.info.token_name ||
                       `NFT #${index}`
                     }
+                    width={300}
+                    height={300}
                     className="w-full h-full object-cover transition-transform hover:scale-105"
                   />
                 </div>

@@ -1,4 +1,5 @@
 import BlockTransaction from "@/components/pages/blocks/BlockTransaction";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -15,16 +16,16 @@ export default function Home() {
             secrets of every block.
           </p>
           <div className="flex justify-center gap-4">
-            <a
+            <Link
               href="/market"
               className="px-6 py-3 bg-blue-800 hover:bg-blue-600 text-white rounded-lg font-medium transition-colors">
               Explore Markets
-            </a>
-            <a
+            </Link>
+            <Link
               href="/transactions"
               className="px-6 py-3 border border-blue-600 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg font-medium transition-colors">
               View Transactions
-            </a>
+            </Link>
           </div>
         </div>
       </section>
