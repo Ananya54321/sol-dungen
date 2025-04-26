@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 
-import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./ui/mode-toggle";
 
 import Link from "next/link";
