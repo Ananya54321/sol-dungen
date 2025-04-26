@@ -114,3 +114,60 @@ export interface Token {
   holder: number;
   created_time?: number;
 }
+
+export interface NFTItemAttribute {
+  trait_type: string;
+  value: string | number;
+}
+
+export interface NFTItemCreator {
+  address: string;
+  share: number;
+  verified: boolean | number;
+}
+
+export interface NFTItemMeta {
+  name?: string;
+  description?: string;
+  image?: string;
+  external_url?: string;
+  attributes?: NFTItemAttribute[];
+  collection?: {
+    name: string;
+    family?: string;
+  };
+  seller_fee_basis_points?: number;
+  properties?: {
+    creators?: NFTItemCreator[];
+  };
+}
+
+export interface NFTItemInfo {
+  address?: string;
+  token_name?: string;
+  token_symbol?: string;
+  mint_tx?: string;
+  created_time?: number;
+  meta?: NFTItemMeta;
+  data?: {
+    symbol?: string;
+    sellerFeeBasisPoints?: number;
+    creators?: NFTItemCreator[];
+  };
+}
+
+export interface NFTItemStats {
+  price?: string;
+  type?: string;
+  seller?: string;
+  buyer?: string;
+  market_id?: string;
+  trade_time?: number;
+}
+
+export interface NFTItemDetails {
+  info: NFTItemInfo;
+  stats?: NFTItemStats;
+  meta?: NFTItemMeta;
+  token_symbol?: string;
+}

@@ -4,14 +4,22 @@ import { useParams } from "next/navigation";
 import useFetchCollectionItems from "@/hooks/useFetchCollectionItems";
 import { formatDistanceToNow } from "date-fns";
 import { Copy, ExternalLink, MoreHorizontal } from "lucide-react";
+import {
+  NFTItemAttribute,
+  NFTItemCreator,
+  NFTItemMeta,
+  NFTItemInfo,
+  NFTItemStats,
+  NFTItemDetails,
+} from "@/types";
 
 const NFTDetailPage = () => {
   const params = useParams();
   const { id } = params;
   const { nfts, error, loading } = useFetchCollectionItems({
-    collectionId: id,
+    collectionId: id as string,
   });
-  const [selectedNft, setSelectedNft] = useState(null);
+  const [selectedNft, setSelectedNft] = useState<NFTItemDetails | null>(null);
 
   if (loading)
     return (
@@ -32,21 +40,21 @@ const NFTDetailPage = () => {
       </div>
     );
 
-  const handleNftClick = (nft) => {
+  const handleNftClick = (nft: NFTItemDetails) => {
     setSelectedNft(nft);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const copyToClipboard = (text) => {
+  const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
   };
 
-  const formatPrice = (price, decimals = 9) => {
+  const formatPrice = (price: string | undefined, decimals = 9) => {
     if (!price) return "N/A";
     return (parseInt(price) / Math.pow(10, decimals)).toFixed(4);
   };
 
-  const formatTimestamp = (timestamp) => {
+  const formatTimestamp = (timestamp: number | undefined) => {
     if (!timestamp) return "N/A";
     const date = new Date(timestamp * 1000);
     return `${date.toLocaleDateString()} (${formatDistanceToNow(date, {
@@ -54,7 +62,7 @@ const NFTDetailPage = () => {
     })})`;
   };
 
-  const truncateAddress = (address, length = 6) => {
+  const truncateAddress = (address: string | undefined, length = 6) => {
     if (!address) return "N/A";
     return `${address.slice(0, length)}...${address.slice(-length)}`;
   };
@@ -113,6 +121,45 @@ const NFTDetailPage = () => {
                   )}
                 </div>
               </div>
+              {/* Creators */}
+              {(displayNft.info?.data?.creators ||
+                displayNft.info.meta?.properties?.creators) && (
+                <div>
+                  <h3 className="text-lg font-semibold m-2">Creators</h3>
+                  <div className="space-y-3">
+                    {(
+                      displayNft.info?.data?.creators ||
+                      displayNft.info.meta?.properties?.creators ||
+                      []
+                    ).map((creator: NFTItemCreator, idx: number) => (
+                      <div
+                        key={idx}
+                        className="flex justify-between items-center bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
+                        <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-1">
+                            <p className="font-mono">
+                              {truncateAddress(creator.address)}
+                            </p>
+                            <button
+                              onClick={() => copyToClipboard(creator.address)}
+                              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                              aria-label="Copy creator address">
+                              <Copy size={14} />
+                            </button>
+                          </div>
+                          {creator.verified === 1 ||
+                          creator.verified === true ? (
+                            <span className="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full">
+                              Verified
+                            </span>
+                          ) : null}
+                        </div>
+                        <span className="text-sm">{creator.share}%</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* NFT Details Section */}
@@ -160,9 +207,10 @@ const NFTDetailPage = () => {
                         </p>
                         <button
                           onClick={() =>
-                            copyToClipboard(displayNft.stats.seller)
+                            copyToClipboard(displayNft.stats?.seller || "")
                           }
-                          className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                          className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                          aria-label="Copy seller address">
                           <Copy size={14} />
                         </button>
                       </div>
@@ -177,9 +225,10 @@ const NFTDetailPage = () => {
                         </p>
                         <button
                           onClick={() =>
-                            copyToClipboard(displayNft.stats.buyer)
+                            copyToClipboard(displayNft.stats?.buyer || "")
                           }
-                          className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                          className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                          aria-label="Copy buyer address">
                           <Copy size={14} />
                         </button>
                       </div>
@@ -194,9 +243,10 @@ const NFTDetailPage = () => {
                         </p>
                         <button
                           onClick={() =>
-                            copyToClipboard(displayNft.stats.market_id)
+                            copyToClipboard(displayNft.stats?.market_id || "")
                           }
-                          className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                          className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                          aria-label="Copy market ID">
                           <Copy size={14} />
                         </button>
                       </div>
@@ -213,7 +263,7 @@ const NFTDetailPage = () => {
                 </div>
               )}
 
-              {displayNft.meta?.description && (
+              {displayNft.info.meta?.description && (
                 <div className="mb-6">
                   <h3 className="text-lg font-semibold mb-2">Description</h3>
                   <p className="text-gray-600 dark:text-gray-300">
@@ -235,9 +285,10 @@ const NFTDetailPage = () => {
                       </p>
                       <button
                         onClick={() =>
-                          copyToClipboard(displayNft.info?.address)
+                          copyToClipboard(displayNft.info?.address || "")
                         }
-                        className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                        className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                        aria-label="Copy mint address">
                         <Copy size={14} />
                       </button>
                     </div>
@@ -266,7 +317,7 @@ const NFTDetailPage = () => {
                     </p>
                     <p className="font-semibold">
                       {(displayNft.info?.data?.sellerFeeBasisPoints ||
-                        displayNft.meta?.seller_fee_basis_points ||
+                        displayNft.info.meta?.seller_fee_basis_points ||
                         0) / 100}
                       %
                     </p>
@@ -276,63 +327,26 @@ const NFTDetailPage = () => {
               {/* Attributes & Creators Section */}
               <div className="px-4 border-t border-gray-200 dark:border-gray-700 grid grid-cols-1 gap-8">
                 {/* Attributes */}
-                {displayNft.meta?.attributes &&
-                  displayNft.meta.attributes.length > 0 && (
+                {displayNft.info.meta?.attributes &&
+                  displayNft.info.meta.attributes.length > 0 && (
                     <div>
                       <h3 className="text-lg font-semibold mb-4">Attributes</h3>
                       <div className="grid grid-cols-2 gap-3">
-                        {displayNft.meta.attributes.map((attr, idx) => (
-                          <div
-                            key={idx}
-                            className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 flex flex-col">
-                            <span className="text-xs text-blue-500 dark:text-blue-400 uppercase font-medium">
-                              {attr.trait_type}
-                            </span>
-                            <span className="font-medium">{attr.value}</span>
-                          </div>
-                        ))}
+                        {displayNft.info.meta.attributes.map(
+                          (attr: NFTItemAttribute, idx: number) => (
+                            <div
+                              key={idx}
+                              className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 flex flex-col">
+                              <span className="text-xs text-blue-500 dark:text-blue-400 uppercase font-medium">
+                                {attr.trait_type}
+                              </span>
+                              <span className="font-medium">{attr.value}</span>
+                            </div>
+                          )
+                        )}
                       </div>
                     </div>
                   )}
-
-                {/* Creators */}
-                {(displayNft.info?.data?.creators ||
-                  displayNft.meta?.properties?.creators) && (
-                  <div>
-                    <h3 className="text-lg font-semibold m-2">Creators</h3>
-                    <div className="space-y-3">
-                      {(
-                        displayNft.info?.data?.creators ||
-                        displayNft.meta?.properties?.creators ||
-                        []
-                      ).map((creator, idx) => (
-                        <div
-                          key={idx}
-                          className="flex justify-between items-center bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
-                          <div className="flex items-center gap-2">
-                            <div className="flex items-center gap-1">
-                              <p className="font-mono">
-                                {truncateAddress(creator.address)}
-                              </p>
-                              <button
-                                onClick={() => copyToClipboard(creator.address)}
-                                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
-                                <Copy size={14} />
-                              </button>
-                            </div>
-                            {creator.verified === 1 ||
-                            creator.verified === true ? (
-                              <span className="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full">
-                                Verified
-                              </span>
-                            ) : null}
-                          </div>
-                          <span className="text-sm">{creator.share}%</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           </div>
@@ -343,7 +357,7 @@ const NFTDetailPage = () => {
       <h2 className="text-xl font-bold mb-4">Collection Items</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {Array.isArray(nfts) && nfts.length > 0 ? (
-          nfts.map((nft, index) => (
+          nfts.map((nft: NFTItemDetails, index: number) => (
             <div
               key={index}
               className={`border rounded-lg p-4 shadow-sm cursor-pointer transition-all hover:shadow-md
@@ -379,13 +393,15 @@ const NFTDetailPage = () => {
 
               {nft.info.meta?.attributes && (
                 <div className="mt-2 text-xs text-gray-600 dark:text-gray-400 flex flex-wrap gap-1">
-                  {nft.info.meta.attributes.slice(0, 3).map((attr, idx) => (
-                    <span
-                      key={idx}
-                      className="bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full truncate">
-                      {attr.trait_type}: {attr.value}
-                    </span>
-                  ))}
+                  {nft.info.meta.attributes
+                    .slice(0, 3)
+                    .map((attr: NFTItemAttribute, idx: number) => (
+                      <span
+                        key={idx}
+                        className="bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full truncate">
+                        {attr.trait_type}: {attr.value}
+                      </span>
+                    ))}
                   {nft.info.meta.attributes.length > 3 && (
                     <span className="bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full">
                       +{nft.info.meta.attributes.length - 3} more
