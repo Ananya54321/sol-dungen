@@ -74,7 +74,13 @@ export interface NFTMetadata {
   image?: string;
   collection?: {
     name?: string;
+    family?: string;
   };
+  external_url?: string;
+  name?: string;
+  symbol?: string;
+  poolInfo?: PoolInfo;
+  positionInfo?: PositionInfo;
 }
 
 export interface NFTData {
@@ -102,17 +108,119 @@ export interface Token {
   decimals: number;
   name: string;
   symbol: string;
-}
-export interface Token {
-  address: string;
-  decimals: number;
-  name: string;
-  symbol: string;
+  chainId?: number;
+  logoURI?: string;
+  programId?: string;
+  tags?: string[];
+  extensions?: Record<string, any>;
   market_cap: number;
   price: number;
   price_24h_change: number;
   holder: number;
   created_time?: number;
+}
+
+
+export interface PoolAPRStats {
+  apr: number;
+  feeApr: number;
+  priceMax?: number;
+  priceMin?: number;
+  rewardApr?: any[];
+  volume?: number;
+  volumeFee?: number;
+  volumeQuote?: number;
+}
+
+export interface PoolInfo {
+  id?: string;
+  mintA?: Token;
+  mintB?: Token;
+  mintAmountA?: number;
+  mintAmountB?: number;
+  price?: number;
+  tvl?: number;
+  feeRate?: number;
+  type?: string;
+  programId?: string;
+  day?: PoolAPRStats;
+  week?: PoolAPRStats;
+  month?: PoolAPRStats;
+  config?: Record<string, any>;
+}
+
+export interface UnclaimedFeeInfo {
+  amountA: number;
+  amountB: number;
+  reward?: any[];
+  usdFeeValue?: number;
+  usdRewardValue?: number;
+  usdValue?: number;
+}
+
+export interface PositionInfo {
+  amountA?: number;
+  amountB?: number;
+  tvlPercentage?: number;
+  unclaimedFee?: UnclaimedFeeInfo;
+  usdValue?: number;
+}
+
+export interface NFTItemAttribute {
+  trait_type: string;
+  value: string | number;
+}
+
+export interface NFTItemCreator {
+  address: string;
+  share: number;
+  verified: boolean | number;
+}
+
+export interface NFTItemMeta {
+  name?: string;
+  description?: string;
+  image?: string;
+  external_url?: string;
+  attributes?: NFTItemAttribute[];
+  collection?: {
+    name: string;
+    family?: string;
+  };
+  seller_fee_basis_points?: number;
+  properties?: {
+    creators?: NFTItemCreator[];
+  };
+}
+
+export interface NFTItemInfo {
+  address?: string;
+  token_name?: string;
+  token_symbol?: string;
+  mint_tx?: string;
+  created_time?: number;
+  meta?: NFTItemMeta;
+  data?: {
+    symbol?: string;
+    sellerFeeBasisPoints?: number;
+    creators?: NFTItemCreator[];
+  };
+}
+
+export interface NFTItemStats {
+  price?: string;
+  type?: string;
+  seller?: string;
+  buyer?: string;
+  market_id?: string;
+  trade_time?: number;
+}
+
+export interface NFTItemDetails {
+  info: NFTItemInfo;
+  stats?: NFTItemStats;
+  meta?: NFTItemMeta;
+  token_symbol?: string;
 }
 export interface TokenMetadata {
   name: string;
