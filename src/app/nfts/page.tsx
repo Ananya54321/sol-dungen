@@ -15,9 +15,10 @@ export default function NftsPage() {
           </p>
           <Separator className="mt-6" />
         </div>
-        <NewestNfts />
-        <Separator className="my-8" />
         <TrendingNfts />
+
+        <Separator className="my-8" />
+        <NewestNfts />
       </div>
     </div>
   );
