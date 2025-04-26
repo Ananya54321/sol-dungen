@@ -114,3 +114,31 @@ export interface Token {
   holder: number;
   created_time?: number;
 }
+export interface TokenMetadata {
+  name: string;
+  image: string;
+  symbol: string;
+  description: string;
+  twitter: string;
+  website: string;
+}
+
+export interface DetailedToken {
+  address: string;
+  name: string;
+  symbol: string;
+  icon: string;
+  decimals: number;
+  holder: number;
+  first_mint_tx: string;
+  first_mint_time: number;
+  metadata?: TokenMetadata;
+  mint_authority: string;
+  freeze_authority: string;
+  supply: string;
+  price: number;
+  volume_24h: number;
+  market_cap: number;
+  market_cap_rank: number;
+  price_change_24h: number;
+}
