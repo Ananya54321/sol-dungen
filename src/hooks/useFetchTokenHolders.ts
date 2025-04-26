@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { DetailedToken } from "@/types";
+
 interface TokenHolder {
   address: string;
   amount: number;

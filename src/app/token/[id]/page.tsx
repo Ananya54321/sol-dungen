@@ -3,7 +3,7 @@ import React from "react";
 import { useParams } from "next/navigation";
 import TokenDetails from "@/components/pages/tokens/TokenDetails";
 import TokenHoldersList from "@/components/pages/tokens/TokenHoldersList";
-const page = () => {
+const Page = () => {
   const { id } = useParams() as { id: string };
 
   return (
@@ -14,4 +14,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

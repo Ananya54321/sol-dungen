@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Token } from "@/types";
+
 import { DetailedToken } from "@/types";
 interface ApiResponse {
   success: boolean;
