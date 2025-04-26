@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/card";
 import useFetchTrendingTokens from "@/hooks/useFetchTrendingTokens";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const TrendingTokens = () => {
   const { data: tokens, error, isLoading } = useFetchTrendingTokens();
@@ -36,9 +38,18 @@ const TrendingTokens = () => {
                   #{index + 1}
                 </span>
               </div>
-              <CardDescription className="text-sm truncate" title={token.name}>
-                {token.name}
-              </CardDescription>
+
+              <div className="flex items-center justify-between space-x-2 mt-2">
+                <CardDescription
+                  className="text-sm truncate"
+                  title={token.name}
+                >
+                  {token.name}
+                </CardDescription>
+                <Button variant="outline" size="sm" className="text-xs">
+                  <Link href={`/token/${token.address}`}>View More</Link>
+                </Button>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="text-xs text-muted-foreground space-y-2">

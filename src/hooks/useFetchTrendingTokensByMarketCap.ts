@@ -17,7 +17,7 @@ export default function useFetchTrendingTokensByMarketCap() {
       setLoading(true);
       try {
         const res = await axios.get<ApiResponse>(
-          "https://pro-api.solscan.io/v2.0/token/list?sort_by=market_cap&sort_order=desc&page=1&page_size=10",
+          "https://pro-api.solscan.io/v2.0/token/list?sort_by=market_cap&sort_order=desc&page=1&page_size=30",
           {
             headers: {
               token: process.env.NEXT_PUBLIC_API_KEY,

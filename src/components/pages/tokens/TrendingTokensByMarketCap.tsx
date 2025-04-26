@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/card";
 import useFetchTrendingTokensByMarketCap from "@/hooks/useFetchTrendingTokensByMarketCap";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const TrendingTokensByMarketCap = () => {
   const {
@@ -40,9 +42,17 @@ const TrendingTokensByMarketCap = () => {
                   #{index + 1}
                 </span>
               </div>
-              <CardDescription className="text-sm truncate" title={token.name}>
-                {token.name}
-              </CardDescription>
+              <div className="flex items-center justify-between space-x-2 mt-2">
+                <CardDescription
+                  className="text-sm truncate"
+                  title={token.name}
+                >
+                  {token.name}
+                </CardDescription>
+                <Button variant="outline" size="sm" className="text-xs">
+                  <Link href={`/token/${token.address}`}>View More</Link>
+                </Button>
+              </div>
             </CardHeader>
             <CardContent className="space-y-2 text-xs text-muted-foreground">
               <div className="flex justify-between">

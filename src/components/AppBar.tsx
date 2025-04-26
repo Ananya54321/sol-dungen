@@ -11,7 +11,7 @@ export function Appbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="flex backdrop-blur-lg  mx-4 md:mx-24 justify-between items-center px-4 md:px-6 py-4 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 sticky top-2 z-50">
+    <div className="flex backdrop-blur-lg  mx-4 md:mx-24 mb-4 justify-between items-center px-4 md:px-6 py-4 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 sticky top-2 z-50">
       <div className="text-2xl font-bold tracking-tight">
         <Link href="/">Sol-Dungen</Link>
       </div>
