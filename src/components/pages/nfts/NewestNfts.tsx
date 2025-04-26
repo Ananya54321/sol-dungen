@@ -6,6 +6,7 @@ import { NftCard, NftCardSkeleton } from "./NftCard";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { NFT, NftCardProps } from "@/types";
 
 export default function NewestNfts() {
   const { nfts, error, loading } = useFetchNewestNfts();
@@ -17,7 +18,7 @@ export default function NewestNfts() {
     const container = containerRef.current;
     if (!container) return;
 
-    const scrollAmount = 320; // Approximate card width + gap
+    const scrollAmount = 320;
     const currentScroll = container.scrollLeft;
     const newPosition =
       direction === "left"
@@ -51,7 +52,8 @@ export default function NewestNfts() {
             size="icon"
             onClick={() => scrollContainer("left")}
             disabled={!canScrollLeft || loading}
-            className="h-9 w-9">
+            className="h-9 w-9"
+          >
             <ChevronLeft className="h-4 w-4" />
             <span className="sr-only">Scroll left</span>
           </Button>
@@ -60,7 +62,8 @@ export default function NewestNfts() {
             size="icon"
             onClick={() => scrollContainer("right")}
             disabled={!canScrollRight || loading}
-            className="h-9 w-9">
+            className="h-9 w-9"
+          >
             <ChevronRight className="h-4 w-4" />
             <span className="sr-only">Scroll right</span>
           </Button>
@@ -90,22 +93,25 @@ export default function NewestNfts() {
                   container.scrollWidth - container.clientWidth - 10
               );
             }
-          }}>
+          }}
+        >
           {loading ? (
             Array(4)
               .fill(0)
               .map((_, index) => (
                 <div
                   key={index}
-                  className="min-w-[300px] max-w-[300px] snap-start">
+                  className="min-w-[300px] max-w-[300px] snap-start"
+                >
                   <NftCardSkeleton />
                 </div>
               ))
           ) : nfts.length > 0 ? (
-            nfts.map((nft: any, index: number) => (
+            nfts.map((nft: NFT, index: number) => (
               <div
                 key={index}
-                className="min-w-[300px] max-w-[300px] snap-start">
+                className="min-w-[300px] max-w-[300px] snap-start"
+              >
                 <NftCard nft={nft} />
               </div>
             ))
