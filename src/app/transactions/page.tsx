@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import axios from "axios";
+import { TransactionCardProps } from "@/types";
 
 const truncateString = (str: string, length = 8) => {
   if (str.length <= length) return str;
@@ -62,7 +63,9 @@ const Page = () => {
   const { data, isLoading, error } = useFetchTransactions();
   const [searchInput, setSearchInput] = useState("");
   const [searchLoading, setSearchLoading] = useState(false);
-  const [searchResult, setSearchResult] = useState<any>(null);
+  const [searchResult, setSearchResult] = useState<TransactionCardProps | null>(
+    null
+  );
   const [searchError, setSearchError] = useState<string | null>(null);
 
   const handleSearch = async (e: React.FormEvent) => {
@@ -91,6 +94,7 @@ const Page = () => {
         setSearchError(result.errors?.message || "Transaction not found");
       }
     } catch (error) {
+      console.log(error);
       setSearchError("Failed to fetch transaction data");
     } finally {
       setSearchLoading(false);

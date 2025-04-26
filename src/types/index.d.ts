@@ -48,6 +48,26 @@ export interface TransactionData {
     program_id: string;
   }[];
 }
+export interface TransactionCardProps {
+  tx_hash: string;
+  tx_status: "finalized" | "failed" | string; // you can make it more specific if needed
+  block_time: number;
+  block_id: string | number;
+  fee: number; // in lamports
+  signer?: string[];
+  parsed_instructions?: {
+    type: string;
+    program: string;
+    program_id: string;
+  }[];
+  programs_involved?: string[];
+  sol_bal_change?: {
+    address: string;
+    pre_balance: number;
+    post_balance: number;
+    change_amount: number;
+  }[];
+}
 
 export interface NFTMetadata {
   description?: string;
