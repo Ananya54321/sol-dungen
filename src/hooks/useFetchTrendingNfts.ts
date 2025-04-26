@@ -19,9 +19,8 @@ const useFetchTrendingNfts = () => {
           }
         );
 
-        // Transform the response to match our NFTCollection interface
         const formattedData: NFTCollection[] = response.data.data.map(
-          (item: any) => ({
+          (item: NFTCollection) => ({
             collection_id: item.collection_id,
             floor_price: item.floor_price,
             items: item.items,

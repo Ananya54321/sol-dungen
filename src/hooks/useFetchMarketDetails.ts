@@ -10,7 +10,7 @@ export default function useFetchMarketData() {
     async function fetchData() {
       try {
         const res = await axios.get(
-          "https://pro-api.solscan.io/v2.0/market/list?page=1&page_size=10&sort_by=created_time&sort_order=desc",
+          "https://pro-api.solscan.io/v2.0/market/list?page=1&page_size=10&sort_by=created_time&sort_order=desc ",
           {
             headers: {
               token: process.env.NEXT_PUBLIC_API_KEY,
@@ -20,6 +20,7 @@ export default function useFetchMarketData() {
         setData(res.data);
       } catch (error) {
         setErr("failed to fetch data");
+        console.log(err);
         console.error("Error fetching market data:", error);
       }
     }

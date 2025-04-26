@@ -48,3 +48,69 @@ export interface TransactionData {
     program_id: string;
   }[];
 }
+export interface TransactionCardProps {
+  tx_hash: string;
+  tx_status: "finalized" | "failed" | string; // you can make it more specific if needed
+  block_time: number;
+  block_id: string | number;
+  fee: number; // in lamports
+  signer?: string[];
+  parsed_instructions?: {
+    type: string;
+    program: string;
+    program_id: string;
+  }[];
+  programs_involved?: string[];
+  sol_bal_change?: {
+    address: string;
+    pre_balance: number;
+    post_balance: number;
+    change_amount: number;
+  }[];
+}
+
+export interface NFTMetadata {
+  description?: string;
+  image?: string;
+  collection?: {
+    name?: string;
+  };
+}
+
+export interface NFTData {
+  name?: string;
+  symbol?: string;
+}
+
+export interface NFTInfo {
+  address?: string;
+  data?: NFTData;
+  meta?: NFTMetadata;
+  collection?: string;
+}
+
+export interface NFT {
+  info?: NFTInfo;
+}
+
+export interface NftCardProps {
+  nft: NFT;
+  className?: string;
+}
+export interface Token {
+  address: string;
+  decimals: number;
+  name: string;
+  symbol: string;
+}
+export interface Token {
+  address: string;
+  decimals: number;
+  name: string;
+  symbol: string;
+  market_cap: number;
+  price: number;
+  price_24h_change: number;
+  holder: number;
+  created_time?: number;
+}

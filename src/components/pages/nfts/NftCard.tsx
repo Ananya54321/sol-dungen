@@ -19,12 +19,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-
-interface NftCardProps {
-  nft: any;
-  className?: string;
-}
-
+import { NftCardProps } from "@/types";
 export function NftCard({ nft, className }: NftCardProps) {
   if (!nft) return null;
 
@@ -51,7 +46,8 @@ export function NftCard({ nft, className }: NftCardProps) {
       className={cn(
         "h-full overflow-hidden transition-all hover:shadow-md",
         className
-      )}>
+      )}
+    >
       <div className="aspect-square w-full overflow-hidden">
         <img
           src={image || "/placeholder.svg"}
@@ -89,7 +85,8 @@ export function NftCard({ nft, className }: NftCardProps) {
                   variant="ghost"
                   size="icon"
                   className="h-6 w-6 ml-1"
-                  onClick={() => copyToClipboard(address)}>
+                  onClick={() => copyToClipboard(address)}
+                >
                   <Copy className="h-3 w-3" />
                 </Button>
               </TooltipTrigger>
@@ -103,11 +100,13 @@ export function NftCard({ nft, className }: NftCardProps) {
           variant="outline"
           size="sm"
           className="h-7 gap-1 text-xs"
-          asChild>
+          asChild
+        >
           <a
             href={`https://solscan.io/token/${address}`}
             target="_blank"
-            rel="noopener noreferrer">
+            rel="noopener noreferrer"
+          >
             View <ExternalLink className="h-3 w-3" />
           </a>
         </Button>

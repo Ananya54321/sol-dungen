@@ -267,6 +267,7 @@ export function NFTCollectionsTable({
   );
 }
 
+
 // Helper function to convert marketplace IDs to readable names
 function getMarketplaceName(marketplaceId: string): string {
   const marketplaces: Record<string, string> = {
