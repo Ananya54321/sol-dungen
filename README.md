@@ -3,6 +3,12 @@
 **Sol Dungen** is a web application designed to explore the Solana Blockchain. It provides users with a modern interface to interact with blockchain data, view NFTs, and explore market data. The project is built using **Next.js**, **React**, **TailwindCSS**, and other modern web development tools.
 
 ---
+## Demo
+
+
+https://github.com/user-attachments/assets/c5761479-5c2d-4f19-9e7d-987ebfeadfc9
+
+
 
 ## Table of Contents
 
