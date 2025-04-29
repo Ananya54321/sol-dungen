@@ -10,6 +10,7 @@ const useFetchTrendingNfts = () => {
   useEffect(() => {
     const fetchNFTs = async () => {
       try {
+        console.log("Fetching trending NFTs...");
         const response = await axios.get(
           "https://pro-api.solscan.io/v2.0/nft/collection/lists?range=1&sort_order=desc&sort_by=volumes&page=1&page_size=10",
           {
@@ -19,9 +20,8 @@ const useFetchTrendingNfts = () => {
           }
         );
 
-        // Transform the response to match our NFTCollection interface
         const formattedData: NFTCollection[] = response.data.data.map(
-          (item: any) => ({
+          (item: NFTCollection) => ({
             collection_id: item.collection_id,
             floor_price: item.floor_price,
             items: item.items,
@@ -32,6 +32,7 @@ const useFetchTrendingNfts = () => {
             volumes_change_24h: item.volumes_change_24h,
           })
         );
+        console.log(response.data.data);
 
         setNfts(formattedData);
         setLoading(false);

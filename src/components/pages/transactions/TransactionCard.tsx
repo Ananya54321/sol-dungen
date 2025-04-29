@@ -5,8 +5,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { TransactionCardProps } from "@/types";
 
-const TransactionCard = ({ transaction }: { transaction: any }) => {
+const TransactionCard = ({
+  transaction,
+}: {
+  transaction: TransactionCardProps;
+}) => {
   console.log("Transaction data:", transaction);
   const tx = transaction;
 
@@ -58,23 +63,32 @@ const TransactionCard = ({ transaction }: { transaction: any }) => {
           Instructions ({tx.parsed_instructions?.length || 0})
         </h4>
         <div className="space-y-2 mt-2">
-          {tx.parsed_instructions?.map((inst: any, idx: number) => (
-            <div
-              key={idx}
-              className="p-2 bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-700"
-            >
-              <p>
-                <span className="font-semibold">Type:</span> {inst.type}
-              </p>
-              <p>
-                <span className="font-semibold">Program:</span> {inst.program}
-              </p>
-              <p className="font-mono text-xs break-all">
-                <span className="font-semibold">Program ID:</span>{" "}
-                {inst.program_id}
-              </p>
-            </div>
-          ))}
+          {tx.parsed_instructions?.map(
+            (
+              inst: {
+                type: string;
+                program: string;
+                program_id: string;
+              },
+              idx: number
+            ) => (
+              <div
+                key={idx}
+                className="p-2 bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-700"
+              >
+                <p>
+                  <span className="font-semibold">Type:</span> {inst.type}
+                </p>
+                <p>
+                  <span className="font-semibold">Program:</span> {inst.program}
+                </p>
+                <p className="font-mono text-xs break-all">
+                  <span className="font-semibold">Program ID:</span>{" "}
+                  {inst.program_id}
+                </p>
+              </div>
+            )
+          )}
         </div>
       </div>
 
@@ -96,29 +110,39 @@ const TransactionCard = ({ transaction }: { transaction: any }) => {
           </AccordionTrigger>
           <AccordionContent>
             <div className="space-y-2 mt-2">
-              {tx.sol_bal_change?.map((change: any, idx: number) => (
-                <div
-                  key={idx}
-                  className="p-2 bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-700"
-                >
-                  <p className="font-mono text-xs break-all">
-                    <span className="font-semibold">Address:</span>{" "}
-                    {change.address}
-                  </p>
-                  <p>
-                    <span className="font-semibold">Pre Balance:</span>{" "}
-                    {change.pre_balance / 1000000000} SOL
-                  </p>
-                  <p>
-                    <span className="font-semibold">Post Balance:</span>{" "}
-                    {change.post_balance / 1000000000} SOL
-                  </p>
-                  <p>
-                    <span className="font-semibold">Change:</span>{" "}
-                    {Number(change.change_amount) / 1000000000} SOL
-                  </p>
-                </div>
-              ))}
+              {tx.sol_bal_change?.map(
+                (
+                  change: {
+                    address: string;
+                    pre_balance: number;
+                    post_balance: number;
+                    change_amount: number;
+                  },
+                  idx: number
+                ) => (
+                  <div
+                    key={idx}
+                    className="p-2 bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-700"
+                  >
+                    <p className="font-mono text-xs break-all">
+                      <span className="font-semibold">Address:</span>{" "}
+                      {change.address}
+                    </p>
+                    <p>
+                      <span className="font-semibold">Pre Balance:</span>{" "}
+                      {change.pre_balance / 1000000000} SOL
+                    </p>
+                    <p>
+                      <span className="font-semibold">Post Balance:</span>{" "}
+                      {change.post_balance / 1000000000} SOL
+                    </p>
+                    <p>
+                      <span className="font-semibold">Change:</span>{" "}
+                      {Number(change.change_amount) / 1000000000} SOL
+                    </p>
+                  </div>
+                )
+              )}
             </div>
           </AccordionContent>
         </AccordionItem>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Table,
   TableBody,
@@ -45,6 +46,7 @@ export function NFTCollectionsTable({
   collections,
   loading = false,
 }: NFTCollectionsTableProps) {
+  const router = useRouter();
   const [sortField, setSortField] = useState<keyof NFTCollection>("volumes");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
 
@@ -55,6 +57,10 @@ export function NFTCollectionsTable({
       setSortField(field);
       setSortDirection("desc");
     }
+  };
+
+  const navigateToCollection = (collectionId: string) => {
+    router.push(`/nfts/${collectionId}`);
   };
 
   const sortedCollections = [...collections].sort((a, b) => {
@@ -206,7 +212,12 @@ export function NFTCollectionsTable({
               </TableRow>
             ) : (
               sortedCollections.map((collection) => (
-                <TableRow key={collection.collection_id}>
+                <TableRow
+                  key={collection.collection_id}
+                  className="cursor-pointer hover:bg-muted/50 transition-colors"
+                  onClick={() =>
+                    navigateToCollection(collection.collection_id)
+                  }>
                   <TableCell className="py-4">
                     <div className="flex flex-col">
                       <div className="font-medium">{collection.name}</div>
@@ -233,7 +244,7 @@ export function NFTCollectionsTable({
                       {collection.volumes_change_24h}%
                     </Badge>
                   </TableCell>
-                  <TableCell>
+                  <TableCell onClick={(e) => e.stopPropagation()}>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="outline" size="sm" className="w-full">

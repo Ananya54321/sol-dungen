@@ -20,6 +20,7 @@ export default function useFetchMarketData() {
         setData(res.data);
       } catch (error) {
         setErr("failed to fetch market data");
+
         console.error("Error fetching market data:", error);
       }
     }
@@ -30,7 +31,7 @@ export default function useFetchMarketData() {
   if (marketData && marketData.success) {
     return {
       marketData: marketData.data,
-      err: "",
+      err: err,
     };
   }
   return {
